@@ -11,14 +11,17 @@ class MRJobCount(MRJob):
         if lower > upper:
             lower, upper = upper, lower
 
-        (ZipCode,Centimeters) = line.split(',')
+        (GivenName,ZipCode,Centimeters) = line.split(',')
 
         if lower <= int(Centimeters) <= upper:
             if int(ZipCode) == zipc:
-                yield ZipCode, 1
+                yield "row", (GivenName, ZipCode, Centimeters)
 
     def reducer(self, key, values):
-        yield key, sum(values)
+        tuple_list = list()
+        if key == "row":
+            tuple_list.append([val for val in values])
+        yield key, tuple_list
 
 
 if __name__ == '__main__':
