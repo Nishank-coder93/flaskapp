@@ -3,6 +3,7 @@ import os
 from MRWordFrequency import MRWordFrequencyCount
 from mrjob_1 import MRJobCount
 import time
+import getpass
 import pandas as pd
 
 app = Flask(__name__)
@@ -13,6 +14,7 @@ def get_data(file_name, col1,col2,col3):
 
     data = data[[col1,col2,col3]]
 
+    app.logger.error("User: {}".format(getpass.getuser()))
     cur_file_path = os.path.join(app.root_path, 'datasets', 'qdata.csv')
 
     data.to_csv(cur_file_path, sep=',', index=False, header=False)
@@ -82,4 +84,4 @@ def query_one():
         return render_template('query_1.html', dataInfo=data_dict, timeinfo=max_time)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
