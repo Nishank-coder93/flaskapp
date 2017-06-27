@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="input_box">
+    <h3 class="text-center"> Press the button to Process the query </h3>
+    <form action="" method="post" enctype="multipart/form-data">
+        <label> Age 1 </label><input type="text" name="age1" placeholder="add age from">
+        <label> Age 2 </label><input type="text" name="age2" placeholder="add age to">
+        <label> Gender </label><input type="text" name="gender" placeholder="add gender">
+        <input type="submit" value="process" class="btn-info center-block">
+    </form>
+    <h2> Time to process : {{ timeinfo }} Seconds</h2>
+</div>
+<div>
+{% if dataInfo %}
+    <p>{% for key, val in dataInfo.iteritems() %}</p>
+    <p>{{ key }}: {{ val }}</p>
+    {% endfor %}
+{% endif %}
+</div>
+{% endblock %}
